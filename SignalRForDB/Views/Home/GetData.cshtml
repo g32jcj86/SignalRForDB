@@ -1,0 +1,23 @@
+﻿@model IEnumerable<SignalRForDB.Models.SignalR>
+@{
+    Layout = null;
+}
+
+<br /><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.value</td>
+            </tr>
+        }
+    </tbody>
+</table>

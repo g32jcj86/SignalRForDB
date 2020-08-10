@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="body">
+
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var notifications = $.connection.myHub;
+            notifications.client.updateMessages = function () {
+                GetData();
+            };
+            $.connection.hub.start().done(function () {
+                console.log('connection started');
+                GetData();
+            }).fail(function (e) {
+                console.log(e);
+                });
+
+            notifications.client.updateData = function (data) {
+                    @* 更新資料 *@
+                    GetData();
+            };
+        })
+
+        function GetData() {
+            var body = $('#body');
+            $.ajax({
+                url: '/home/GetData',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    body.empty().append(result);
+                }
+            });
+        }
+
+    </script>
+}
